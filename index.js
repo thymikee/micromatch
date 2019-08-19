@@ -260,8 +260,15 @@ micromatch.some = (list, patterns, options) => {
   let items = [].concat(list);
 
   for (let pattern of [].concat(patterns)) {
-    let isMatch = picomatch(String(pattern), options);
-    if (items.some(item => isMatch(item))) {
+    let isMatch = picomatch(String(pattern), options, true);
+    let negated = isMatch.state.negated || isMatch.state.negatedExtglob;
+
+    if (
+      items.some(item => {
+        let matched = isMatch(item, true);
+        return negated ? !matched.isMatch : matched.isMatch;
+      })
+    ) {
       return true;
     }
   }

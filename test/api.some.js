@@ -11,7 +11,7 @@ describe('.some()', () => {
 
   it('should return false if no matches are found', () => {
     var fixtures = ['a/a', 'a/b', 'a/c', 'b/a', 'b/b', 'b/c'];
-    assert(!mm.some(fixtures, ['z', 'x/*']));
+    assert(!mm.some(fixtures, ['z', 'x/*', '!c/*']));
   });
 
   it('should arrayify a string value', () => {
